@@ -1,3 +1,89 @@
+🏠 Room Rent Management Backend (Node.js + MongoDB + Razorpay)
+
+This backend powers a complete Room Rent Management System that allows admins and tenants to manage rooms, payments, profiles, and monthly rent reminders.
+Built using Node.js, Express, MongoDB, JWT Authentication, Razorpay, and Cloudinary for image uploads.
+
+🚀 Features
+👤 User & Authentication
+
+Register with OTP verification (Nodemailer)
+
+Login with secure JWT token
+
+Update profile with Cloudinary photo upload
+
+Admin & User role-based authentication
+
+🏡 Room Management
+
+Admin can create, update, delete rooms
+
+Assign tenant to room
+
+Track room status (available/occupied)
+
+Store tenant details, rent information, and Aadhaar details
+
+💳 Payment System
+
+Supports two types of payments:
+
+✔ Online Payments (Razorpay Integration)
+
+Create payment order
+
+Verify payment using order_id, payment_id, and signature
+
+Store secure payment transaction in DB
+
+✔ Cash Payments
+
+Admin can manually record cash payments
+
+Stored with proper timestamp and paymentMethod: "cash"
+
+📊 Payment Tracking
+
+Get all payment history
+
+Payment export to CSV
+
+Track rent by month
+
+Store tenantName, month, amount, paymentMethod, timestamps
+
+🔔 Automatic Rent Reminder System
+
+Cron job checks unpaid rooms monthly
+
+Sends reminder emails to tenants using Nodemailer
+
+Fully customizable reminder message template
+
+📁 Cloudinary File Uploads
+
+Secure profile photo handling
+
+Old photos automatically deleted on update
+
+🧩 Tech Stack
+
+Node.js
+
+Express.js
+
+MongoDB + Mongoose
+
+JWT Authentication
+
+Cloudinary File Storage
+
+Nodemailer
+
+Razorpay Payment Gateway
+
+Node-cron
+
 ```API Endpoints
 1. Auth APIs
 Register (Send OTP)
@@ -263,5 +349,25 @@ Response Example:
     "paidOn": "2025-11-24T15:12:40.456Z"
   }
 ]
+
+```
+
+```
+/
+├── controllers/
+├── models/
+├── routes/
+├── middleware/
+├── utils/
+│   ├── email.js
+│   ├── reminder.js
+│   ├── razorpay.js
+│   ├── exportCSV.js
+├── config/
+│   ├── cloudinary.js
+├── cron/
+│   ├── rentReminder.js
+├── server.js
+└── README.md
 
 ```
