@@ -1,10 +1,11 @@
-🏠 Room Rent Management Backend (Node.js + MongoDB + Razorpay)
+# 🏠 Room Rent Management Backend (Node.js + MongoDB + Razorpay)
 
 This backend powers a complete Room Rent Management System that allows admins and tenants to manage rooms, payments, profiles, and monthly rent reminders.
 Built using Node.js, Express, MongoDB, JWT Authentication, Razorpay, and Cloudinary for image uploads.
 
-🚀 Features
-👤 User & Authentication
+## 🚀 Features
+
+#### 👤 User & Authentication
 
 Register with OTP verification (Nodemailer)
 
@@ -14,7 +15,7 @@ Update profile with Cloudinary photo upload
 
 Admin & User role-based authentication
 
-🏡 Room Management
+#### 🏡 Room Management
 
 Admin can create, update, delete rooms
 
@@ -24,7 +25,7 @@ Track room status (available/occupied)
 
 Store tenant details, rent information, and Aadhaar details
 
-💳 Payment System
+#### 💳 Payment System
 
 Supports two types of payments:
 
@@ -42,7 +43,7 @@ Admin can manually record cash payments
 
 Stored with proper timestamp and paymentMethod: "cash"
 
-📊 Payment Tracking
+#### 📊 Payment Tracking
 
 Get all payment history
 
@@ -52,7 +53,7 @@ Track rent by month
 
 Store tenantName, month, amount, paymentMethod, timestamps
 
-🔔 Automatic Rent Reminder System
+#### 🔔 Automatic Rent Reminder System
 
 Cron job checks unpaid rooms monthly
 
@@ -60,29 +61,29 @@ Sends reminder emails to tenants using Nodemailer
 
 Fully customizable reminder message template
 
-📁 Cloudinary File Uploads
+#### 📁 Cloudinary File Uploads
 
 Secure profile photo handling
 
 Old photos automatically deleted on update
 
-🧩 Tech Stack
+#### 🧩 Tech Stack
 
-Node.js
+- Node.js
 
-Express.js
+- Express.js
 
-MongoDB + Mongoose
+- MongoDB + Mongoose
 
-JWT Authentication
+- JWT Authentication
 
-Cloudinary File Storage
+- Cloudinary File Storage
 
-Nodemailer
+- Nodemailer
 
-Razorpay Payment Gateway
+- Razorpay Payment Gateway
 
-Node-cron
+- Node-cron
 
 ```API Endpoints
 1. Auth APIs
