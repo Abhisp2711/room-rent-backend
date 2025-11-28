@@ -3,8 +3,6 @@ import { v2 as cloudinary } from "cloudinary";
 
 // ------------------- ADMIN CONTROLLERS -------------------
 
-// CREATE ROOM (Admin Only) with photo upload
-
 // CREATE ROOM (Admin Only)
 export const createRoom = async (req, res) => {
   try {
@@ -44,7 +42,7 @@ export const createRoom = async (req, res) => {
 // ASSIGN TENANT (Admin only)
 export const assignTenant = async (req, res) => {
   try {
-    const { roomId } = req.params;
+    const roomId = req.params.id;
     const { userId, name, email, startDate } = req.body;
 
     const room = await Room.findById(roomId);
@@ -57,6 +55,30 @@ export const assignTenant = async (req, res) => {
     await room.save();
 
     res.json({ message: "Tenant assigned successfully", room });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// UNASSIGN TENANT (Admin only )
+
+export const unassignTenant = async (req, res) => {
+  try {
+    const roomId = req.params.id;
+
+    const room = await Room.findById(roomId);
+    if (!room) return res.status(404).json({ error: "Room not found" });
+
+    if (room.isAvailable) {
+      return res.status(400).json({ error: "Room is already empty" });
+    }
+
+    room.tenant = null;
+    room.isAvailable = true;
+
+    await room.save();
+
+    res.json({ message: "Tenant unassigned successfully ", room });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -81,7 +103,6 @@ export const deleteRoom = async (req, res) => {
     const room = await Room.findById(req.params.id);
     if (!room) return res.status(404).json({ error: "Room not found" });
 
-    // Delete all room photos from Cloudinary
     if (room.photos && room.photos.length > 0) {
       for (const photo of room.photos) {
         if (photo.public_id) {
@@ -90,7 +111,6 @@ export const deleteRoom = async (req, res) => {
       }
     }
 
-    // Delete the room from DB
     await Room.findByIdAndDelete(req.params.id);
 
     res.json({ message: "Room and its images deleted successfully" });
@@ -113,6 +133,7 @@ export const getAllRooms = async (req, res) => {
       isAvailable: room.isAvailable,
       status: room.isAvailable ? "Available" : "Occupied",
       tenant: room.tenant?.name || null,
+      photos: room.photos?.map((p) => p.url) || [], // <-- ADDED
     }));
 
     res.json(formattedRooms);
@@ -134,6 +155,7 @@ export const getRoomById = async (req, res) => {
       isAvailable: room.isAvailable,
       status: room.isAvailable ? "Available" : "Occupied",
       tenant: room.tenant?.name || null,
+      photos: room.photos?.map((p) => p.url) || [],
     };
 
     res.json(formattedRoom);

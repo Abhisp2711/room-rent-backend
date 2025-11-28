@@ -8,6 +8,8 @@ import {
   deleteRoom,
   getAllRooms,
   getRoomById,
+  assignTenant,
+  unassignTenant,
 } from "../controllers/roomController.js";
 
 const router = express.Router();
@@ -28,6 +30,10 @@ router.put(
   cloudinaryUpload("room_photos").array("photos", 5),
   updateRoom
 );
+
+router.put("/assign/:id", authMiddleware, adminMiddleware, assignTenant);
+
+router.put("/unassign/:id", authMiddleware, adminMiddleware, unassignTenant);
 
 router.delete("/delete/:id", authMiddleware, adminMiddleware, deleteRoom);
 
